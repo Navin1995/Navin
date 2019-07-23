@@ -1,0 +1,282 @@
+===Output as the program code====
+
+
+#include <stdio.h>
+int main() {
+    FILE *fp;
+    char c;
+    fp = fopen(__FILE__,"r");
+    do {
+        c = getc(fp);
+        putchar(c);
+    }
+    while(c != EOF);
+    fclose(fp);
+    return 0;
+}
+
+===Recursive Fibonacci===
+
+
+#include <stdio.h>
+#include <conio.h>
+int fibonacci(int term);
+int main(){
+	int terms, counter;
+	printf("Enter number of terms in Fibonacci series: ");
+	scanf("%d", &terms);
+	/*
+     *  Nth term = (N-1)th therm + (N-2)th term;
+     */
+	printf("Fibonacci series till %d terms\n", terms); 
+	for(counter = 0; counter < terms; counter++){
+		printf("%d ", fibonacci(counter));
+	}
+	getch();
+	return 0;
+}
+/*
+ * Function to calculate Nth Fibonacci number
+ * fibonacci(N) = fibonacci(N - 1) + fibonacci(N - 2);
+ */
+int fibonacci(int term){
+	/* Exit condition of recursion*/
+	if(term < 2)
+		return term;
+	return fibonacci(term - 1) + fibonacci(term - 2);
+}
+
+===Recursive Reverse===
+
+#include <stdio.h>										#include <stdio.h>					
+int rev(int);											int main()					
+int main(){												{					
+	int n = 456,revs;										int n, reversedNumber = 0, remainder;			
+	revs =rev(n);											printf("Enter an integer: ");				
+	printf("reverse = %d",revs)								scanf("%d", &n);				
+	return 0;												while(n != 0)				
+}															{				
+int sum = 0;													remainder = n%10;			
+int rev(int n){													reversedNumber = reversedNumber*10 + remainder;			
+	int temp;													 n /= 10;			
+	if(n){													}				
+		temp = n%10;										printf("Reversed Number = %d", reversedNumber);				
+		sum = sum * 10 + temp;								return 0;				
+		rev(n/10);										}				
+	}else{														
+		return sum;												
+	}															
+}																
+
+===IsPrime Recursive===
+
+#include<stdio.h>											#include <stdio.h>	
+int isPrime(int,int);										int main()		
+int main(){													{
+    int num,prime;											    int n, i, flag = 0;	
+    printf("Enter a positive number: ");												
+    scanf("%d",&num);										    printf("Enter a positive integer: ");		
+    prime = isPrime(num,num/2);								    scanf("%d",&n);				
+   if(prime==1)												
+        printf("%d is a prime number",num);					    for(i=2; i<=n/2; ++i)							
+   else														    {
+      printf("%d is not a prime number",num);				        // condition for nonprime number								
+															        if(n%i==0)
+   return 0;												        {
+}															            flag=1;
+int isPrime(int num,int i){									            break;			
+    if(i==1){												        }
+        return 1;											    }	
+    }else{													
+       if(num%i==0)											    if (flag==0)	
+         return 0;											        printf("%d is a prime number.",n);	
+       else													    else
+         isPrime(num,i-1);									        printf("%d is not a prime number.",n);			
+    }														    
+}															    return 0;
+															}
+
+====PrimeNumber Series ===
+
+#include<stdio.h>
+int main(){
+	int i,j,n=20;
+	int temp=0,ctn=0;
+	for(j=1;j<=n;j++){
+		ctn = 0;
+		for(i=2;i<=j/2;i++){
+			if(j%i==0){
+				ctn++;
+				break;
+			}
+		}
+		if(ctn==0&&j!=1){
+			printf("%d\n",j);
+		}
+	}	
+	return 0;
+}
+
+
+===stack===
+
+#include<stdio.h>
+int push(int);
+int pop();
+int arr[10],ptr=-1,size;
+int main(){
+	size = sizeof(arr)/sizeof(int);
+	
+	pop();
+	push(30);
+	for(int i = 0;i<ptr+1;i++)
+	{
+		printf("position %d data = %d\n",(i+1),arr[i]);
+	}
+	//printf("%d",size);
+	return 0;
+}
+int push(int a){
+	if(ptr == size-1){
+		printf("Overload\n");
+	}else{
+		ptr++;
+		arr[ptr] = a;
+	}
+}
+int pop(){
+	if(ptr==-1){
+		printf("EMpty\n");
+	}else{
+		ptr--;
+	}
+}
+
+===Circular Queue===
+
+#include<stdio.h>
+int arr[10],size = 10,i,rear=-1,front=0;
+int insert(int);
+int del();
+void display();
+int main(){
+	insert(10);
+	insert(20);
+	insert(30);
+	insert(40);
+	insert(50);
+	insert(60);
+	insert(70);
+	insert(40);
+	insert(50);
+	insert(160);
+	del();
+	del();
+	insert(20);
+	insert(120);
+	display();
+	return 0;
+}
+int insert(int a){
+	if(front==0&&rear==size-1||front>0&&rear==front-1){
+		printf("Overload\n");
+	}else{
+		if(front>0&&rear==size-1){
+			//printf("a\n");
+			rear=0;
+			arr[rear]=a;
+		}else{
+			if(( front==0 && rear==-1 )||( rear!=front-1 )){
+				rear++;
+				arr[rear]=a;
+			}
+		}
+	}
+}
+int del(){
+	if(front==0&&rear==-1){
+		printf("Empty\n");
+	}else{
+		if(front==rear){
+			printf("data Deleted\n",arr[front]);
+			front=0;
+			rear=-1;
+		}else{
+			if(front==size-1){
+				printf("data Deleted\n",arr[front]);
+				front=0;
+			}else{
+				printf("data Deleted\n",arr[front]);
+				front++;
+			}
+		}
+	}
+}
+void display(){
+	if(front==0&&rear==-1){
+		printf("Underflow\n");
+	}else{
+		if(front>rear){
+			for(i=0;i<=rear;i++){
+				printf("Data = %d\n",arr[i]);
+			}
+			for(i=front;i<=size-1;i++){
+				printf("Data = %d\n",arr[i]);
+			}
+		}else{
+			for(i=front;i<=rear;i++){
+				printf("Data = %d\n",arr[i]);
+			}
+		}
+	}
+} 
+
+
+
+
+																		
+==GCD==																	
+																	#include <stdio.h>
+#include <stdio.h>													int hcf(int n1, int n2);
+int main(){															int main(){
+    int n1, n2, i, gcd;												   int n1, n2;
+    printf("Enter two integers: ");									   printf("Enter two positive integers: ");
+    scanf("%d %d", &n1, &n2);										   scanf("%d %d", &n1, &n2);
+    for(i=1; i <= n1 && i <= n2; ++i){								   printf("G.C.D of %d and %d is %d.", n1, n2, hcf(n1,n2));
+        /* Checks if i is factor of both integers*/					   return 0;
+        if(n1%i==0 && n2%i==0)										}
+            gcd = i;												int hcf(int n1, int n2){
+    }																    if (n2 != 0)
+    printf("G.C.D of %d and %d is %d", n1, n2, gcd);				       return hcf(n2, n1%n2);
+    return 0;														    else 
+}																	       return n1;
+																	}
+
+
+
+
+
+===LCM==
+																			#include<stdio.h>
+#include <stdio.h>															int lcm(int, int);
+int main(){																	int main()
+    int n1, n2, minMultiple;												{
+    printf("Enter two positive integers: ");								    int a, b, result;
+    scanf("%d %d", &n1, &n2);												    int prime[100];
+    /* maximum number between n1 and n2 is stored in minMultiple*/			    printf("Enter two numbers: ");
+    minMultiple = (n1>n2) ? n1 : n2;										    scanf("%d%d", &a, &b);
+    /* Always true*/														    result = lcm(a, b);
+    while(1){																    printf("The LCM of %d and %d is %d\n", a, b, result);
+        if( minMultiple%n1==0 && minMultiple%n2==0 ){						    return 0;
+            printf("The LCM of %d and %d is %d.", n1, n2,minMultiple);		}
+            break;															int lcm(int a, int b){ 
+        }																	    static int common = 1
+        ++minMultiple;														    if (common % a == 0 && common % b == 0){
+    }																		        return common;
+    return 0;																    }
+}																			    common++;
+																			    lcm(a, b);
+																			    return common;
+																			}
+
+																			
